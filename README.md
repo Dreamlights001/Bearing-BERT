@@ -157,13 +157,13 @@ python evaluate.py --model_path <path_to_lstm_model> --text_encoder_type simple_
 - **振动编码器**: 轻量级的一维卷积神经网络 (1D-CNN)。
 - **文本编码器**: 预训练的 DistilBERT 或可切换的 Embedding+LSTM。
 - **关键公式 - 相似度计算**:
-  $$
+  \[
   \text{logits} = \exp(\tau) \cdot (\text{normalize}(V) \cdot \text{normalize}(T)^T)
-  $$
+  \]
 - **关键公式 - 对称对比损失**:
-  $$
+  \[
   L_{\text{total}} = \frac{2 \cdot \text{CrossEntropy}(L, \text{labels}) + \text{CrossEntropy}(L^T, \text{labels})}{2}
-  $$
+  \]
 
 ## 📄 许可证
 本项目采用 MIT License 许可证。
