@@ -157,13 +157,14 @@ python evaluate.py --model_path <path_to_lstm_model> --text_encoder_type simple_
 - **振动编码器**: 轻量级的一维卷积神经网络 (1D-CNN)。
 - **文本编码器**: 预训练的 DistilBERT 或可切换的 Embedding+LSTM。
 - **关键公式 - 相似度计算**:
-  \[
-  \text{logits} = \exp(\tau) \cdot (\text{normalize}(V) \cdot \text{normalize}(T)^T)
-  \]
+<p align="center">
+  <img src="https://latex.codecogs.com/png.latex?%5Ctext%7Blogits%7D%20%3D%20%5Cexp%28%5Ctau%29%20%5Ccdot%20%28%5Ctext%7Bnormalize%7D%28V%29%20%5Ccdot%20%5Ctext%7Bnormalize%7D%28T%29%5ET%29" alt="Similarity Calculation">
+</p>
+
 - **关键公式 - 对称对比损失**:
-  \[
-  L_{\text{total}} = \frac{2 \cdot \text{CrossEntropy}(L, \text{labels}) + \text{CrossEntropy}(L^T, \text{labels})}{2}
-  \]
+<p align="center">
+  <img src="https://latex.codecogs.com/png.latex?L_%7B%5Ctext%7Btotal%7D%7D%20%3D%20%5Cfrac%7B2%20%5Ccdot%20%5Ctext%7BCrossEntropy%7D%28L%2C%20%5Ctext%7Blabels%7D%29%20%2B%20%5Ctext%7BCrossEntropy%7D%28L%5ET%2C%20%5Ctext%7Blabels%7D%29%7D%7B2%7D" alt="Symmetric Contrastive Loss">
+</p>
 
 ## 📄 许可证
 本项目采用 MIT License 许可证。
