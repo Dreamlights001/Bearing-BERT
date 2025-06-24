@@ -1,4 +1,4 @@
-# Bearing-BERT: 基于CLIP思想的轴承故障诊断BERT框架
+# Bearing-BERT: 基于CLIP思想的轴承故障诊断BERT模型框架
 
 本项目采用 CLIP（Contrastive Language-Image Pre-Training）的核心思想，将BERT模型创新性地应用于工业领域的轴承故障诊断。我们不再使用图像，而是将一维的振动时序信号与描述其状态的自然语言文本进行对齐，构建一个强大的“振动-文本”多模态诊断模型。
 
