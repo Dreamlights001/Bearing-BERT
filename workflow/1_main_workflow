@@ -1,0 +1,47 @@
+digraph Main_Workflow {
+	graph [fontname=SimHei splines=ortho]
+	node [fillcolor="#F5F5F5" fontname=SimHei shape=box style="rounded,filled"]
+	edge [fontname=SimHei fontsize=10]
+	fontsize=20 label="流程图一：主线训练与评估工作流" labelloc=t
+	subgraph cluster_training {
+		color=lightgrey label="训练阶段" style=filled
+		stage1 [label="<<B>阶段一: 零样本预训练</B><BR/>
+            <FONT POINT-SIZE=\"10\">使用完整的提示词模板，学习通用的振动-文本表示。</FONT><BR ALIGN=\"LEFT\"/>
+            <B>参数设置:</B><BR ALIGN=\"LEFT\"/>
+            - mode: 'zero_shot'<BR ALIGN=\"LEFT\"/>
+            - prompt: \"A {} bearing\"<BR ALIGN=\"LEFT\"/>
+            - epochs: 30<BR ALIGN=\"LEFT\"/>
+            - lr: 1e-4<BR ALIGN=\"LEFT\"/>
+        "]
+		output1 [label=<<b>产出:</b><BR/>zero_shot_model.pth> fillcolor="#E3F2FD" shape=cylinder]
+		stage2 [label="<<B>阶段二: 适配器微调</B><BR/>
+            <FONT POINT-SIZE=\"10\">加载预训练权重，仅微调轻量级残差适配器，提升性能。</FONT><BR ALIGN=\"LEFT\"/>
+            <B>参数设置:</B><BR ALIGN=\"LEFT\"/>
+            - mode: 'adapter'<BR ALIGN=\"LEFT\"/>
+            - epochs: 15<BR ALIGN=\"LEFT\"/>
+            - lr: 5e-5<BR ALIGN=\"LEFT\"/>
+        "]
+		output2 [label=<<b>产出:</b><BR/>adapter_tuned_model.pth> fillcolor="#E3F2FD" shape=cylinder]
+	}
+	subgraph cluster_evaluation {
+		color=lightgrey label="评估阶段" style=filled
+		eval [label="<<B>最终模型评估</B><BR/>
+            <FONT POINT-SIZE=\"10\">在测试集上验证最终模型的性能。</FONT><BR ALIGN=\"LEFT\"/>
+            <B>参数设置:</B><BR ALIGN=\"LEFT\"/>
+            - batch_size: 256<BR ALIGN=\"LEFT\"/>
+        "]
+		results [label="<<B>最终结果</B><BR/>
+            1. 性能报告 (准确率/AUROC等)<BR/>
+            2. 混淆矩阵图<BR/>
+            3. t-SNE可视化图<BR/>
+            4. 预测结果文件
+        " fillcolor="#E8F5E9" shape=document]
+	}
+	start [label=<b>开始: 项目设置</b> fillcolor="#D6EAF8" shape=ellipse]
+	start -> stage1 [label="准备数据集和环境"]
+	stage1 -> output1 [label="执行 `python train.py ...`"]
+	output1 -> stage2 [label="加载基础权重"]
+	stage2 -> output2 [label="执行 `python train.py ...`"]
+	output2 -> eval [label="加载最终模型"]
+	eval -> results [label="执行 `python evaluate.py ...`"]
+}
