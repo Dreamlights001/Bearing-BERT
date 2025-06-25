@@ -55,8 +55,8 @@
 ## 🛠️ 安装与设置
 1. **克隆仓库**
    ```bash
-   git clone <your-repository-url>
-   cd <your-project-folder>
+   git clone https://github.com/Dreamlights001/Bearing-BERT
+   cd bearing_BERT
    ```
 
 2. **创建并激活虚拟环境 (推荐)**
